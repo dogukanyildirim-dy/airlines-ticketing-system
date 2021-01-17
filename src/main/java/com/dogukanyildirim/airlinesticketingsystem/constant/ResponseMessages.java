@@ -12,4 +12,8 @@ public class ResponseMessages {
     public static String READ_LIST_SUCCESS_MESSAGE = "Kayıt listesi getirme işlemi başarılı bir şekilde gerçekleşti.";
     public static String UPDATE_SUCCESS_MESSAGE = "Kayıt güncelleme işlemi başarılı bir şekilde gerçekleşti.";
     public static String DELETE_SUCCESS_MESSAGE = "Kayıt silme işlemi başarılı bir şekilde gerçekleşti.";
+
+    public static String LOGIN_TITLE = "Login işlemi";
+    public static String ADMIN_LOGIN_MESSAGE = "Admin olarak başarıyla login olundu.";
+    public static String LOGIN_MESSAGE = "Başarıyla login olundu.";
 }

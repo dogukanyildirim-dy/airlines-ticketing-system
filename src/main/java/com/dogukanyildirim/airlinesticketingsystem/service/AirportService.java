@@ -1,6 +1,6 @@
 package com.dogukanyildirim.airlinesticketingsystem.service;
 
-import com.dogukanyildirim.airlinesticketingsystem.domain.Airport;
+import com.dogukanyildirim.airlinesticketingsystem.domain.management.Airport;
 
 import java.util.List;
 

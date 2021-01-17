@@ -1,6 +1,6 @@
 package com.dogukanyildirim.airlinesticketingsystem.controller;
 
-import com.dogukanyildirim.airlinesticketingsystem.domain.Airport;
+import com.dogukanyildirim.airlinesticketingsystem.domain.management.Airport;
 import com.dogukanyildirim.airlinesticketingsystem.dto.AirportDTO;
 import com.dogukanyildirim.airlinesticketingsystem.dto.RestResponse;
 import com.dogukanyildirim.airlinesticketingsystem.dto.mapper.ObjectMapper;
@@ -43,7 +43,7 @@ public class AirportController {
 
     @PutMapping(value = "update")
     public ResponseEntity<RestResponse<AirportDTO>> update(@RequestBody AirportDTO airportDTO) {
-        Airport result = airportService.create(ObjectMapper.getInstance().map(airportDTO, Airport.class));
+        Airport result = airportService.update(ObjectMapper.getInstance().map(airportDTO, Airport.class));
         return new ResponseEntity<>(new RestResponse<>(ObjectMapper.getInstance().map(result, AirportDTO.class), UPDATE_TITLE, UPDATE_SUCCESS_MESSAGE), HttpStatus.OK);
     }
 

@@ -10,7 +10,7 @@ public class AirlineCompanyDTO extends BaseDTO {
     private String airlineName;
     private String airlineAlias;
     private String airlineCallsign;
-    private String iataCode; // ucus no hesanınca yanına koyulacak
+    private String iataCode;
     private String icaoCode;
     private String country;
 }

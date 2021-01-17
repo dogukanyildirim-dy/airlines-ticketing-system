@@ -1,4 +1,4 @@
-package com.dogukanyildirim.airlinesticketingsystem.domain;
+package com.dogukanyildirim.airlinesticketingsystem.domain.management;
 
 import com.dogukanyildirim.airlinesticketingsystem.domain.base.BaseEntity;
 import com.dogukanyildirim.airlinesticketingsystem.enums.ClassEnum;
@@ -27,13 +27,13 @@ public class FlightPackage extends BaseEntity {
     private Flight flight;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "flight_class")
+    @Column(name = "flight_class", nullable = false)
     private ClassEnum flightClass;
 
-    @Column(name = "base_quota")
-    private Float baseQuota;
+    @Column(name = "base_quota", nullable = false)
+    private Integer baseQuota;
 
-    @Column(name = "base_price")
+    @Column(name = "base_price", nullable = false)
     private Float basePrice;
 
     @Column(name = "baggage")
@@ -41,4 +41,7 @@ public class FlightPackage extends BaseEntity {
 
     @Column(name = "cabin_baggage")
     private Float cabinBaggage;
+
+    @Column(name = "purchase_code")
+    private String purchaseCode;
 }

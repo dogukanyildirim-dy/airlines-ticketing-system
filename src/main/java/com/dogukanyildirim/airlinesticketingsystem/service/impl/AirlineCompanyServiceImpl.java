@@ -1,8 +1,9 @@
 package com.dogukanyildirim.airlinesticketingsystem.service.impl;
 
 import com.dogukanyildirim.airlinesticketingsystem.dao.AirlineCompanyRepository;
-import com.dogukanyildirim.airlinesticketingsystem.domain.AirlineCompany;
+import com.dogukanyildirim.airlinesticketingsystem.domain.management.AirlineCompany;
 import com.dogukanyildirim.airlinesticketingsystem.exception.ServiceException;
+import com.dogukanyildirim.airlinesticketingsystem.exception.ValidationException;
 import com.dogukanyildirim.airlinesticketingsystem.service.AirlineCompanyService;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,7 @@ public class AirlineCompanyServiceImpl implements AirlineCompanyService {
         if (Objects.isNull(airlineCompany)) {
             throw new ServiceException(AIRLINE_COMPANY_OBJECT_MUST_NOT_BE_NULL);
         }
+        airlineCompanyValidation(airlineCompany);
         return airlineCompanyRepository.save(airlineCompany);
     }
 
@@ -51,6 +53,7 @@ public class AirlineCompanyServiceImpl implements AirlineCompanyService {
         if (Objects.isNull(airlineCompany) || Objects.isNull(airlineCompany.getId())) {
             throw new ServiceException(AIRLINE_COMPANY_OBJECT_OR_ID_MUST_NOT_BE_NULL);
         }
+        airlineCompanyValidation(airlineCompany);
         return airlineCompanyRepository.save(airlineCompany);
     }
 
@@ -64,6 +67,14 @@ public class AirlineCompanyServiceImpl implements AirlineCompanyService {
         airlineCompany = airlineCompanyRepository.save(airlineCompany);
 
         return airlineCompany;
+    }
+
+    private void airlineCompanyValidation(AirlineCompany airlineCompany) throws ValidationException {
+        if (airlineCompany.getIataCode().length() != 2) {
+            throw new ValidationException(IATA_CODE_HAVE_MUST_2_CHAR);
+        } else if (airlineCompany.getIcaoCode().length() != 3) {
+            throw new ValidationException(ICAO_CODE_HAVE_MUST_3_CHAR);
+        }
     }
 
 }

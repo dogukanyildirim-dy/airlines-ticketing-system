@@ -1,7 +1,7 @@
 package com.dogukanyildirim.airlinesticketingsystem.enums;
 
 /**
- * Uçuş paketleri için veritabanı nesnesi
+ * Uçuş paketleri için enumeration nesnesi
  *
  * @author dogukan.yildirim
  */

@@ -1,4 +1,4 @@
-package com.dogukanyildirim.airlinesticketingsystem.domain;
+package com.dogukanyildirim.airlinesticketingsystem.domain.management;
 
 import com.dogukanyildirim.airlinesticketingsystem.domain.base.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;

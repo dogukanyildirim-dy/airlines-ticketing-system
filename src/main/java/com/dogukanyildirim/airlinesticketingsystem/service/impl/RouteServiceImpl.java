@@ -1,7 +1,7 @@
 package com.dogukanyildirim.airlinesticketingsystem.service.impl;
 
 import com.dogukanyildirim.airlinesticketingsystem.dao.RouteRepository;
-import com.dogukanyildirim.airlinesticketingsystem.domain.Route;
+import com.dogukanyildirim.airlinesticketingsystem.domain.management.Route;
 import com.dogukanyildirim.airlinesticketingsystem.exception.ServiceException;
 import com.dogukanyildirim.airlinesticketingsystem.service.RouteService;
 import org.springframework.stereotype.Service;

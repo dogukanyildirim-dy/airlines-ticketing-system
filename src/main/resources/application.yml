@@ -1,5 +1,13 @@
 server:
   port: 7000
+system:
+  admin:
+    user: sysad
+    pass: sysadP
+  token:
+    expiration: 864000000
+    secret: jf9i4jgu83nfl0
+    header: Authorization
 spring:
   datasource:
     url: jdbc:postgresql://192.168.10.92:5432/postgres
@@ -16,3 +24,5 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  activemq:
+    user:
