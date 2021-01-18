@@ -28,6 +28,10 @@ public class ExceptionMessages {
     public static final String PASSENGER_OBJECT_OR_ID_MUST_NOT_BE_NULL = "Yolcu nesnesi veya ID boş olamaz!";
     public static final String PASSENGER_NOT_FOUND = "Kaydedilecek yolcu nesnesi boş olamaz!";
 
+    public static final String TICKET_PURCHASE_OBJECT_MUST_NOT_BE_NULL = "Bilet satın alım nesnesi boş olamaz!";
+    public static final String TICKET_PURCHASE_OBJECT_OR_ID_MUST_NOT_BE_NULL = "Bilet satın alım nesnesi veya ID boş olamaz!";
+    public static final String TICKET_PURCHASE_NOT_FOUND = "Kaydedilecek bilet satın alım nesnesi boş olamaz!";
+
     public static final String IATA_CODE_HAVE_MUST_2_CHAR = "IATA kodu 2 karaktere sahip olmalıdır!";
     public static final String ICAO_CODE_HAVE_MUST_3_CHAR = "ICAO kodu 3 karaktere sahip olmalıdır!";
     public static final String IATA_CODE_HAVE_MUST_3_CHAR = "IATA kodu 3 karaktere sahip olmalıdır!";

@@ -32,6 +32,9 @@ public class TicketPurchase extends BaseEntity {
     @Column(name = "purchase_code", nullable = false)
     private String purchaseCode;
 
+    @Column(name = "pnr_code", nullable = false)
+    private String pnrCode;
+
     @Column(name = "is_cancelled")
     private Boolean isCancelled = false;
 }
