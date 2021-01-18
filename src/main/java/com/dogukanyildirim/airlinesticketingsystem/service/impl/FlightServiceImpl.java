@@ -3,6 +3,7 @@ package com.dogukanyildirim.airlinesticketingsystem.service.impl;
 import com.dogukanyildirim.airlinesticketingsystem.dao.FlightRepository;
 import com.dogukanyildirim.airlinesticketingsystem.domain.management.Flight;
 import com.dogukanyildirim.airlinesticketingsystem.domain.management.FlightPackage;
+import com.dogukanyildirim.airlinesticketingsystem.domain.management.Route;
 import com.dogukanyildirim.airlinesticketingsystem.exception.ServiceException;
 import com.dogukanyildirim.airlinesticketingsystem.exception.ValidationException;
 import com.dogukanyildirim.airlinesticketingsystem.service.FlightService;
@@ -58,6 +59,21 @@ public class FlightServiceImpl implements FlightService {
             throw new ServiceException(FLIGHT_NOT_FOUND);
         }
         return resultOpt.get();
+    }
+
+    @Override
+    public List<Flight> readByRouteAndFlightDate(Route route, LocalDate localDate) {
+        if (Objects.isNull(route)) {
+            throw new ServiceException(ROUTE_IS_NULL);
+        }
+        if (Objects.isNull(localDate)) {
+            throw new ServiceException(FLIGHT_DATE_IS_NULL);
+        }
+        List<Flight> flightList = flightRepository.findAllByRouteAndFlightDateOrderByDepartureTimeAsc(route, localDate);
+        if (flightList.isEmpty()) {
+            throw new ServiceException(ANY_FLIGHT_NOT_FOUND, true);
+        }
+        return flightList;
     }
 
     @Override

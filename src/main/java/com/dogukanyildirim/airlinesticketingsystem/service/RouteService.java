@@ -9,6 +9,8 @@ public interface RouteService {
 
     Route read(Integer id);
 
+    Route readBySourceIataAndDestionationIata(String sIata, String dIata);
+
     List<Route> readAll();
 
     Route update(Route route);

@@ -19,10 +19,13 @@ public class ExceptionMessages {
     public static final String ROUTE_OBJECT_MUST_NOT_BE_NULL = "Rota nesnesi boş olamaz!";
     public static final String ROUTE_OBJECT_OR_ID_MUST_NOT_BE_NULL = "Rota nesnesi veya ID boş olamaz!";
     public static final String ROUTE_NOT_FOUND = "Kaydedilecek rota nesnesi boş olamaz!";
+    public static final String ROUTE_IS_NULL = "Rota bulunamadı.";
+    public static final String FLIGHT_DATE_IS_NULL = "Uçuş tarihi bulunamadı.";
 
     public static final String FLIGHT_OBJECT_MUST_NOT_BE_NULL = "Uçuş nesnesi boş olamaz!";
     public static final String FLIGHT_OBJECT_OR_ID_MUST_NOT_BE_NULL = "Uçuş nesnesi veya ID boş olamaz!";
     public static final String FLIGHT_NOT_FOUND = "Kaydedilecek uçuş nesnesi boş olamaz!";
+    public static final String ANY_FLIGHT_NOT_FOUND = "Belirtilen bilgilerle herhangi bir uçuş bulunamadı.";
 
     public static final String PASSENGER_OBJECT_MUST_NOT_BE_NULL = "Yolcu nesnesi boş olamaz!";
     public static final String PASSENGER_OBJECT_OR_ID_MUST_NOT_BE_NULL = "Yolcu nesnesi veya ID boş olamaz!";
