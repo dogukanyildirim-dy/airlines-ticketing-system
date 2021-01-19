@@ -6,6 +6,7 @@ import org.modelmapper.convention.MatchingStrategies;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ObjectMapper extends ModelMapper {
@@ -28,5 +29,12 @@ public class ObjectMapper extends ModelMapper {
         return sourceList.stream()
                 .map(source -> map(source, outCLass))
                 .collect(Collectors.toList());
+    }
+
+    public <D, S> Set<D> mapAllSet(final Set<S> sourceSet, Class<D> outCLass) {
+        if (Objects.isNull(sourceSet)) return null;
+        return sourceSet.stream()
+                .map(source -> map(source, outCLass))
+                .collect(Collectors.toSet());
     }
 }

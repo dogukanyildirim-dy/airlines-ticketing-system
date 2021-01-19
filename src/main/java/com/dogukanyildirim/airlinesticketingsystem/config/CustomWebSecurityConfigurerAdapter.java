@@ -13,12 +13,6 @@ public class CustomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAda
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-//                .antMatchers("/airline-company/**").permitAll()
-//                .antMatchers("/airport/**").permitAll()
-//                .antMatchers("/airplane/**").permitAll()
-//                .antMatchers("/route/**").permitAll()
-//                .antMatchers("/flight/**").permitAll()
-//                .antMatchers("/login/**").permitAll()
                 .anyRequest().permitAll()
                 .and()
                 .httpBasic()

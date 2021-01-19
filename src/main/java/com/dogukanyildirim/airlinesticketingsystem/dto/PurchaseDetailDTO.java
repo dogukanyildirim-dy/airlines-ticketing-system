@@ -4,6 +4,8 @@ import com.dogukanyildirim.airlinesticketingsystem.dto.base.BaseDTO;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
+
 @Getter
 @Setter
 public class PurchaseDetailDTO extends BaseDTO {
@@ -13,8 +15,7 @@ public class PurchaseDetailDTO extends BaseDTO {
     private String creditCardType;
     private String expirationMonth;
     private String expirationYear;
-    private Float basePrice;
-    private Float tax;
-    private Float fuelCharge;
+    private String email;
+    private String telNo;
     private Float netPrice;
 }

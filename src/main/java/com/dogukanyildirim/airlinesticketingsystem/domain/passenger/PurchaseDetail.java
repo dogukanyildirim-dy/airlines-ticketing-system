@@ -5,9 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Where;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Bilet satın alım detay bilgileri veritabanı nesnesi
@@ -39,15 +37,16 @@ public class PurchaseDetail extends BaseEntity {
     @Column(name = "expiration_year", length = 4, nullable = false)
     private String expirationYear;
 
-    @Column(name = "base_price", nullable = false)
-    private Float basePrice;
-
-    @Column(name = "tax", nullable = false)
-    private Float tax;
-
-    @Column(name = "fuel_charge", nullable = false)
-    private Float fuelCharge;
-
     @Column(name = "net_price", nullable = false)
     private Float netPrice;
+
+    @Column(name = "email", nullable = false)
+    private String email;
+
+    @Column(name = "tel_no", nullable = false)
+    private String telNo;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ticket_purchase_id", referencedColumnName = "id", updatable = false, nullable = false)
+    private TicketPurchase ticketPurchase;
 }

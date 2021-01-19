@@ -18,4 +18,5 @@ public class JourneyFlightPackageResponse {
     private Float tax;
     private Float fuelCharge;
     private Float netPrice;
+    private Float priceForPassengerCount;
 }

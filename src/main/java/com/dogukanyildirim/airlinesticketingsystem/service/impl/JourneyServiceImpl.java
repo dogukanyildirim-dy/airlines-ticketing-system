@@ -15,10 +15,9 @@ import com.dogukanyildirim.airlinesticketingsystem.service.RouteService;
 import com.dogukanyildirim.airlinesticketingsystem.service.TicketPurchaseService;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.time.LocalDate;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.dogukanyildirim.airlinesticketingsystem.constant.Constants.*;
 
@@ -39,23 +38,25 @@ public class JourneyServiceImpl implements JourneyService {
     @Override
     public MainJourneyResponse getJourneys(JourneyRequest journeyRequest) {
         MainJourneyResponse mainJourneyResponse = new MainJourneyResponse();
-        //TODO JourneyRequest Validation yazılacak
-        //TODO Yolcu sayısı kullan
         Route outboundRoute = routeService.readBySourceIataAndDestionationIata(journeyRequest.getSourceAirport(), journeyRequest.getDestinationAirport());
         List<JourneyResponse> outboundJourneyResponses = new ArrayList<>();
-        createJourneysByRoute(journeyRequest, outboundJourneyResponses, outboundRoute);
-        mainJourneyResponse.setOutboundJourneys(outboundJourneyResponses);
+        createJourneysByRoute(journeyRequest, journeyRequest.getFlightDate(), outboundJourneyResponses, outboundRoute);
+        mainJourneyResponse.setOutboundJourneys(outboundJourneyResponses.stream()
+                .sorted(Comparator.comparing(JourneyResponse::getDepartureTime, Comparator.naturalOrder()))
+                .collect(Collectors.toList()));
         if (!journeyRequest.getIsOneWay()) {
             List<JourneyResponse> returnJourneyResponses = new ArrayList<>();
             Route returnRoute = routeService.readBySourceIataAndDestionationIata(journeyRequest.getDestinationAirport(), journeyRequest.getSourceAirport());
-            createJourneysByRoute(journeyRequest, returnJourneyResponses, returnRoute);
-            mainJourneyResponse.setReturnJourneys(returnJourneyResponses);
+            createJourneysByRoute(journeyRequest, journeyRequest.getReturnFlightDate(), returnJourneyResponses, returnRoute);
+            mainJourneyResponse.setReturnJourneys(returnJourneyResponses.stream()
+                    .sorted(Comparator.comparing(JourneyResponse::getDepartureTime, Comparator.naturalOrder()))
+                    .collect(Collectors.toList()));
         }
         return mainJourneyResponse;
     }
 
-    private void createJourneysByRoute(JourneyRequest journeyRequest, List<JourneyResponse> journeyResponses, Route route) {
-        List<Flight> flightList = flightService.readByRouteAndFlightDate(route, journeyRequest.getFlightDate());
+    private void createJourneysByRoute(JourneyRequest journeyRequest, LocalDate flightDate, List<JourneyResponse> journeyResponses, Route route) {
+        List<Flight> flightList = flightService.readByRouteAndFlightDate(route, flightDate);
         for (Flight flight : flightList) {
             JourneyResponse journeyResponse = new JourneyResponse();
             journeyResponse.setFlightId(flight.getId());
@@ -82,6 +83,7 @@ public class JourneyServiceImpl implements JourneyService {
                     journeyFlightPackageResponse.setFuelCharge(flight.getAirlineCompany().getFuelCharge());
                     journeyFlightPackageResponse.setTax(journeyFlightPackageResponse.getCurrentPrice() * TAX_PERCENT);
                     journeyFlightPackageResponse.setNetPrice(journeyFlightPackageResponse.getCurrentPrice() + journeyFlightPackageResponse.getFuelCharge() + journeyFlightPackageResponse.getTax());
+                    journeyFlightPackageResponse.setPriceForPassengerCount(journeyFlightPackageResponse.getNetPrice() * journeyRequest.getNumberOfPassengers());
                     journeyFlightPackageResponseList.add(journeyFlightPackageResponse);
                 }
             }
