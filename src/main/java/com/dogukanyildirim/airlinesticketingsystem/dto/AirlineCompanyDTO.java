@@ -13,4 +13,5 @@ public class AirlineCompanyDTO extends BaseDTO {
     private String iataCode;
     private String icaoCode;
     private String country;
+    private Float fuelCharge;
 }

@@ -42,6 +42,9 @@ public class AirlineCompany extends BaseEntity {
     @Column(name = "country")
     private String country;
 
+    @Column(name = "fuel_charge")
+    private Float fuelCharge;
+
     @JsonIgnore
     @OneToMany(mappedBy = "airlineCompany")
     private Set<Flight> flights;

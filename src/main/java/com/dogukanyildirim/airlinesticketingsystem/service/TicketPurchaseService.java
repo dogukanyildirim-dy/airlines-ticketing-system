@@ -14,5 +14,7 @@ public interface TicketPurchaseService {
 
     TicketPurchase update(TicketPurchase route);
 
+    Integer getCountByFlightIdAndPurchaseCode(Integer flightId, String purchaseCode);
+
     TicketPurchase delete(Integer id);
 }

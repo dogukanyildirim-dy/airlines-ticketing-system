@@ -56,6 +56,11 @@ public class TicketPurchaseServiceImpl implements TicketPurchaseService {
     }
 
     @Override
+    public Integer getCountByFlightIdAndPurchaseCode(Integer flightId, String purchaseCode) {
+        return ticketPurchaseRepository.countByFlight_IdAndPurchaseCodeAndIsCancelledIsFalse(flightId, purchaseCode);
+    }
+
+    @Override
     public TicketPurchase delete(Integer id) {
         if (Objects.isNull(id)) {
             throw new ServiceException(ID_MUST_NOT_BE_NULL);

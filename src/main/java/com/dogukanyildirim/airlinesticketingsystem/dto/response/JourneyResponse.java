@@ -5,7 +5,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Set;
+import java.util.List;
 
 @Getter
 @Setter
@@ -22,5 +22,5 @@ public class JourneyResponse {
     private Integer airlineCompanyId;
     private String airlineCompany;
     private String flightType;
-    private Set<JourneyFlightPackageResponse> journeyFlightPackages;
+    private List<JourneyFlightPackageResponse> journeyFlightPackages;
 }

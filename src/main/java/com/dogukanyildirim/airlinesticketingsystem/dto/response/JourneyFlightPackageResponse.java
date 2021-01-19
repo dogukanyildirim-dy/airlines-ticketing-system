@@ -9,8 +9,8 @@ import javax.persistence.Column;
 @Setter
 public class JourneyFlightPackageResponse {
     private String flightClass;
-    private Integer baseQuota;
-    private Float basePrice;
+    private Integer currentQuota;
+    private Float currentPrice;
     private Float baggage;
     private Float cabinBaggage;
     private String purchaseCode;

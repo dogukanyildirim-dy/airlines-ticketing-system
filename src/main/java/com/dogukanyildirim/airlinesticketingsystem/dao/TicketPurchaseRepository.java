@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TicketPurchaseRepository extends JpaRepository<TicketPurchase, Integer> {
-
+    Integer countByFlight_IdAndPurchaseCodeAndIsCancelledIsFalse(Integer flightId, String purchaseCode);
 }
