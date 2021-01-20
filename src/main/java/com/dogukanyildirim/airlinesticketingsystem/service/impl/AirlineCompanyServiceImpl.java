@@ -5,6 +5,7 @@ import com.dogukanyildirim.airlinesticketingsystem.domain.management.AirlineComp
 import com.dogukanyildirim.airlinesticketingsystem.exception.ServiceException;
 import com.dogukanyildirim.airlinesticketingsystem.exception.ValidationException;
 import com.dogukanyildirim.airlinesticketingsystem.service.AirlineCompanyService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -109,6 +110,10 @@ public class AirlineCompanyServiceImpl implements AirlineCompanyService {
             throw new ValidationException(IATA_CODE_HAVE_MUST_2_CHAR);
         } else if (airlineCompany.getIcaoCode().length() != 3) {
             throw new ValidationException(ICAO_CODE_HAVE_MUST_3_CHAR);
+        } else if (Objects.isNull(airlineCompany.getFuelCharge())){
+            throw new ValidationException(FUEL_CHARGE_MUST_NOT_BE_NULL);
+        } else if (StringUtils.isBlank(airlineCompany.getAirlineName())){
+            throw new ValidationException(AIRLINE_COMPANY_NAME_MUST_NOT_BE_NULL);
         }
     }
 

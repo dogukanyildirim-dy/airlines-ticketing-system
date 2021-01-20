@@ -24,7 +24,7 @@ import java.util.Set;
 @Entity
 @Table(name = "airline_company")
 public class AirlineCompany extends BaseEntity {
-    @Column(name = "airline_name")
+    @Column(name = "airline_name", nullable = false)
     private String airlineName;
 
     @Column(name = "airline_alias")
@@ -42,7 +42,7 @@ public class AirlineCompany extends BaseEntity {
     @Column(name = "country")
     private String country;
 
-    @Column(name = "fuel_charge")
+    @Column(name = "fuel_charge", nullable = false)
     private Float fuelCharge;
 
     @JsonIgnore

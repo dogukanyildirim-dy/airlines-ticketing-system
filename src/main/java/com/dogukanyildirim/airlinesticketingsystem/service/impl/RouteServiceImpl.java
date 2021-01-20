@@ -63,7 +63,7 @@ public class RouteServiceImpl implements RouteService {
     public Route readBySourceIataAndDestionationIata(String sIata, String dIata) {
         Optional<Route> resultOpt = routeRepository.findBySourceAirport_IataCodeAndDestinationAirport_IataCode(sIata, dIata);
         if (!resultOpt.isPresent()) {
-            throw new ServiceException(ROUTE_NOT_FOUND);
+            throw new ServiceException(ROUTE_IS_NULL);
         }
         return resultOpt.get();
     }

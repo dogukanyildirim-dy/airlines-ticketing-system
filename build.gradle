@@ -26,6 +26,8 @@ dependencies {
     compile group: 'org.modelmapper', name: 'modelmapper', version: '2.3.9'
     // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.11'
+    // https://mvnrepository.com/artifact/commons-validator/commons-validator
+    compile group: 'commons-validator', name: 'commons-validator', version: '1.7'
     // https://mvnrepository.com/artifact/io.springfox/springfox-swagger2
     compile group: 'io.springfox', name: 'springfox-swagger2', version: '3.0.0'
     // https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui

@@ -9,6 +9,7 @@ import com.dogukanyildirim.airlinesticketingsystem.dto.request.JourneyRequest;
 import com.dogukanyildirim.airlinesticketingsystem.dto.response.JourneyFlightPackageResponse;
 import com.dogukanyildirim.airlinesticketingsystem.dto.response.JourneyResponse;
 import com.dogukanyildirim.airlinesticketingsystem.dto.response.MainJourneyResponse;
+import com.dogukanyildirim.airlinesticketingsystem.exception.ServiceException;
 import com.dogukanyildirim.airlinesticketingsystem.service.FlightService;
 import com.dogukanyildirim.airlinesticketingsystem.service.JourneyService;
 import com.dogukanyildirim.airlinesticketingsystem.service.RouteService;
@@ -20,6 +21,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.dogukanyildirim.airlinesticketingsystem.constant.Constants.*;
+import static com.dogukanyildirim.airlinesticketingsystem.constant.ExceptionMessages.ANY_FLIGHT_NOT_FOUND;
 
 @Service
 public class JourneyServiceImpl implements JourneyService {
@@ -71,38 +73,41 @@ public class JourneyServiceImpl implements JourneyService {
      */
     private void createJourneysByRoute(JourneyRequest journeyRequest, LocalDate flightDate, List<JourneyResponse> journeyResponses, Route route) {
         List<Flight> flightList = flightService.readByRouteAndFlightDate(route, flightDate);
-        for (Flight flight : flightList) {
-            JourneyResponse journeyResponse = new JourneyResponse();
-            journeyResponse.setFlightId(flight.getId());
-            journeyResponse.setFlightDate(flight.getFlightDate());
-            journeyResponse.setFlightCode(flight.getFlightCode());
-            journeyResponse.setDepartureTime(flight.getDepartureTime());
-            journeyResponse.setDuration(flight.getDuration());
-            journeyResponse.setArrivalTime(flight.getDepartureTime().plusHours(flight.getDuration().getHour()).plusMinutes(flight.getDuration().getMinute()));
-            journeyResponse.setRouteId(route.getId());
-            journeyResponse.setRouteSource(route.getSourceAirport().getAirportName() + ", " + route.getSourceAirport().getIataCode() + ", " + route.getSourceAirport().getCity());
-            journeyResponse.setRouteDestination(route.getDestinationAirport().getAirportName() + ", " + route.getDestinationAirport().getIataCode() + ", " + route.getDestinationAirport().getCity());
-            journeyResponse.setFlightType(flight.getIsDirectly() ? DIRECTLY : INDIRECTLY);
-            journeyResponse.setAirlineCompanyId(flight.getAirlineCompany().getId());
-            journeyResponse.setAirlineCompany(flight.getAirlineCompany().getAirlineName());
+        if (!flightList.isEmpty()) {
+            for (Flight flight : flightList) {
+                JourneyResponse journeyResponse = new JourneyResponse();
+                journeyResponse.setFlightId(flight.getId());
+                journeyResponse.setFlightDate(flight.getFlightDate());
+                journeyResponse.setFlightCode(flight.getFlightCode());
+                journeyResponse.setDepartureTime(flight.getDepartureTime());
+                journeyResponse.setDuration(flight.getDuration());
+                journeyResponse.setArrivalTime(flight.getDepartureTime().plusHours(flight.getDuration().getHour()).plusMinutes(flight.getDuration().getMinute()));
+                journeyResponse.setRouteId(route.getId());
+                journeyResponse.setRouteSource(route.getSourceAirport().getAirportName() + ", " + route.getSourceAirport().getIataCode() + ", " + route.getSourceAirport().getCity());
+                journeyResponse.setRouteDestination(route.getDestinationAirport().getAirportName() + ", " + route.getDestinationAirport().getIataCode() + ", " + route.getDestinationAirport().getCity());
+                journeyResponse.setFlightType(flight.getIsDirectly() ? DIRECTLY : INDIRECTLY);
+                journeyResponse.setAirlineCompanyId(flight.getAirlineCompany().getId());
+                journeyResponse.setAirlineCompany(flight.getAirlineCompany().getAirlineName());
 
-            List<JourneyFlightPackageResponse> journeyFlightPackageResponseList = new ArrayList<>();
-            if (Objects.nonNull(flight.getFlightPackages())) {
-                for (FlightPackage flightPackage : flight.getFlightPackages()) {
-                    JourneyFlightPackageResponse journeyFlightPackageResponse = new JourneyFlightPackageResponse();
-                    journeyFlightPackageResponse.setFlightClass(flightPackage.getFlightClass());
-                    journeyFlightPackageResponse.setBaggage(flightPackage.getBaggage());
-                    journeyFlightPackageResponse.setCabinBaggage(flightPackage.getCabinBaggage());
-                    calculateTicketPriceAndQuota(flightPackage, journeyFlightPackageResponse);
-                    journeyFlightPackageResponse.setFuelCharge(flight.getAirlineCompany().getFuelCharge());
-                    journeyFlightPackageResponse.setTax(journeyFlightPackageResponse.getCurrentPrice() * TAX_PERCENT);
-                    journeyFlightPackageResponse.setNetPrice(journeyFlightPackageResponse.getCurrentPrice() + journeyFlightPackageResponse.getFuelCharge() + journeyFlightPackageResponse.getTax());
-                    journeyFlightPackageResponse.setPriceForPassengerCount(journeyFlightPackageResponse.getNetPrice() * journeyRequest.getNumberOfPassengers());
-                    journeyFlightPackageResponseList.add(journeyFlightPackageResponse);
+                List<JourneyFlightPackageResponse> journeyFlightPackageResponseList = new ArrayList<>();
+                if (Objects.nonNull(flight.getFlightPackages())) {
+                    for (FlightPackage flightPackage : flight.getFlightPackages()) {
+                        JourneyFlightPackageResponse journeyFlightPackageResponse = new JourneyFlightPackageResponse();
+                        journeyFlightPackageResponse.setPurchaseCode(flightPackage.getPurchaseCode());
+                        journeyFlightPackageResponse.setFlightClass(flightPackage.getFlightClass());
+                        journeyFlightPackageResponse.setBaggage(flightPackage.getBaggage());
+                        journeyFlightPackageResponse.setCabinBaggage(flightPackage.getCabinBaggage());
+                        calculateTicketPriceAndQuota(flightPackage, journeyFlightPackageResponse);
+                        journeyFlightPackageResponse.setFuelCharge(flight.getAirlineCompany().getFuelCharge());
+                        journeyFlightPackageResponse.setTax(journeyFlightPackageResponse.getCurrentPrice() * TAX_PERCENT);
+                        journeyFlightPackageResponse.setNetPrice(journeyFlightPackageResponse.getCurrentPrice() + journeyFlightPackageResponse.getFuelCharge() + journeyFlightPackageResponse.getTax());
+                        journeyFlightPackageResponse.setPriceForPassengerCount(journeyFlightPackageResponse.getNetPrice() * ((journeyRequest.getNumberOfPassengers() <= 0 && Objects.isNull(journeyRequest.getNumberOfPassengers())) ? 1 : journeyRequest.getNumberOfPassengers()));
+                        journeyFlightPackageResponseList.add(journeyFlightPackageResponse);
+                    }
                 }
+                journeyResponse.setJourneyFlightPackages(journeyFlightPackageResponseList);
+                journeyResponses.add(journeyResponse);
             }
-            journeyResponse.setJourneyFlightPackages(journeyFlightPackageResponseList);
-            journeyResponses.add(journeyResponse);
         }
     }
 

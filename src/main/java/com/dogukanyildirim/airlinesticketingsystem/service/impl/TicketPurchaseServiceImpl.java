@@ -3,21 +3,28 @@ package com.dogukanyildirim.airlinesticketingsystem.service.impl;
 import com.dogukanyildirim.airlinesticketingsystem.dao.TicketPriceHistoryRepository;
 import com.dogukanyildirim.airlinesticketingsystem.dao.TicketPurchaseRepository;
 import com.dogukanyildirim.airlinesticketingsystem.domain.management.Flight;
+import com.dogukanyildirim.airlinesticketingsystem.domain.management.FlightPackage;
 import com.dogukanyildirim.airlinesticketingsystem.domain.passenger.Passenger;
 import com.dogukanyildirim.airlinesticketingsystem.domain.passenger.PurchaseDetail;
 import com.dogukanyildirim.airlinesticketingsystem.domain.passenger.TicketPriceHistory;
 import com.dogukanyildirim.airlinesticketingsystem.domain.passenger.TicketPurchase;
+import com.dogukanyildirim.airlinesticketingsystem.dto.PurchaseDetailDTO;
 import com.dogukanyildirim.airlinesticketingsystem.dto.mapper.ObjectMapper;
 import com.dogukanyildirim.airlinesticketingsystem.dto.request.TicketPurchaseRequest;
 import com.dogukanyildirim.airlinesticketingsystem.dto.response.PassengerResponse;
 import com.dogukanyildirim.airlinesticketingsystem.dto.response.TicketSummaryResponse;
 import com.dogukanyildirim.airlinesticketingsystem.exception.ServiceException;
+import com.dogukanyildirim.airlinesticketingsystem.exception.ValidationException;
 import com.dogukanyildirim.airlinesticketingsystem.service.FlightService;
 import com.dogukanyildirim.airlinesticketingsystem.service.TicketPurchaseService;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.validator.routines.CreditCardValidator;
+import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static com.dogukanyildirim.airlinesticketingsystem.constant.Constants.*;
@@ -81,12 +88,41 @@ public class TicketPurchaseServiceImpl implements TicketPurchaseService {
         ticketPurchase.setPnrCode(generatePNRCode());
         ticketPurchase.setFlight(flight);
         ticketPurchase.setPassengers(ObjectMapper.getInstance().mapAllSet(ticketPurchaseRequest.getPassengers(), Passenger.class));
+        purchaseDetailValidation(ticketPurchaseRequest.getPurchaseDetail());
         PurchaseDetail purchaseDetail = ObjectMapper.getInstance().map(ticketPurchaseRequest.getPurchaseDetail(), PurchaseDetail.class);
         purchaseDetail.setCreditCardNumber(formatAndMaskCreditCardNumber(purchaseDetail.getCreditCardNumber()));
-        purchaseDetail.setNetPrice(ticketPurchaseRequest.getCurrentPrice() * ticketPurchase.getPassengers().size());
+        purchaseDetail.setNetPrice(ticketPurchaseRequest.getPurchaseDetail().getNetPrice() * ticketPurchaseRequest.getPassengers().size());
         ticketPurchase.setPurchaseDetail(purchaseDetail);
 
         return ticketPurchase;
+    }
+
+    private void purchaseDetailValidation(PurchaseDetailDTO purchaseDetail) {
+        if (StringUtils.isBlank(purchaseDetail.getEmail()) || !EmailValidator.getInstance().isValid(purchaseDetail.getEmail())) {
+            throw new ValidationException(EMAIL_IS_NULL_OR_NOT_VALID);
+        } else if (StringUtils.isBlank(purchaseDetail.getTelNo())) {
+            throw new ValidationException(TEL_NO_IS_NULL);
+        } else if (!CreditCardValidator.genericCreditCardValidator().isValid(purchaseDetail.getCreditCardNumber())) {
+            throw new ValidationException(CREDIT_CARD_NO_IS_NULL_OR_NOT_VALID);
+        } else if (StringUtils.isBlank(purchaseDetail.getExpirationMonth()) || StringUtils.isBlank(purchaseDetail.getExpirationYear())) {
+            throw new ValidationException(CREDIT_CARD_NO_EXPIRATION_DATE_IS_NULL);
+        } else if (!((purchaseDetail.getExpirationMonth() + "/" + purchaseDetail.getExpirationYear().substring(2)).matches("^(0[1-9]|1[0-2]|[1-9])/?([0-9]{2})"))) {
+            throw new ValidationException(CREDIT_CARD_NO_EXPIRATION_DATE_NOT_VALID);
+        } else if (creditCardExpirationDateIsExpire(purchaseDetail.getExpirationMonth() + "/" + purchaseDetail.getExpirationYear().substring(2))) {
+            throw new ValidationException(CREDIT_CARD_NO_EXPIRATION_DATE_NOT_VALID);
+        }
+    }
+
+    private boolean creditCardExpirationDateIsExpire(String date) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/yy");
+        simpleDateFormat.setLenient(false);
+        Date expiry;
+        try {
+            expiry = simpleDateFormat.parse(date);
+        } catch (ParseException e) {
+            throw new ServiceException(CREDIT_CARD_NO_EXPIRATION_PARSE_ERROR);
+        }
+        return expiry.before(new Date());
     }
 
     /**
@@ -120,14 +156,22 @@ public class TicketPurchaseServiceImpl implements TicketPurchaseService {
         ticketSummaryResponse.setPnrCode(ticketPurchase.getPnrCode());
         ticketSummaryResponse.setAirlineCompany(ticketPurchase.getFlight().getAirlineCompany().getAirlineName());
         ticketSummaryResponse.setFlightCode(ticketPurchase.getFlight().getFlightCode());
+        ticketSummaryResponse.setFlightDate(ticketPurchase.getFlight().getFlightDate());
         ticketSummaryResponse.setDepartureTime(ticketPurchase.getFlight().getDepartureTime());
         ticketSummaryResponse.setArrivalTime(ticketPurchase.getFlight().getDepartureTime().plusHours(ticketPurchase.getFlight().getDuration().getHour()).plusMinutes(ticketPurchase.getFlight().getDuration().getMinute()));
         ticketSummaryResponse.setSourceAirport((ticketPurchase.getFlight().getRoute().getSourceAirport().getAirportName() + ", " + (ticketPurchase.getFlight().getRoute().getSourceAirport().getIataCode() + ", " + (ticketPurchase.getFlight().getRoute().getSourceAirport().getCity()))));
         ticketSummaryResponse.setDestinationAirport((ticketPurchase.getFlight().getRoute().getDestinationAirport().getAirportName() + ", " + (ticketPurchase.getFlight().getRoute().getDestinationAirport().getIataCode() + ", " + (ticketPurchase.getFlight().getRoute().getDestinationAirport().getCity()))));
+
+        Optional<FlightPackage> flightPackage = ticketPurchase.getFlight().getFlightPackages().stream().filter(m -> m.getPurchaseCode().equals(ticketPurchase.getPurchaseCode())).findFirst();
+        ticketSummaryResponse.setBaggage(flightPackage.map(FlightPackage::getBaggage).orElse(null));
+        ticketSummaryResponse.setCabinBaggage(flightPackage.map(FlightPackage::getCabinBaggage).orElse(null));
+
         List<PassengerResponse> passengers = new ArrayList<>();
         ticketPurchase.getPassengers().forEach(p ->
                 passengers.add(new PassengerResponse(p.getFirstName(), p.getLastName())));
         ticketSummaryResponse.setPassengers(passengers);
+        ticketSummaryResponse.setCreditCardNo(ticketPurchase.getPurchaseDetail().getCreditCardNumber());
+        ticketSummaryResponse.setPayment(ticketPurchase.getPurchaseDetail().getNetPrice());
         return ticketSummaryResponse;
     }
 

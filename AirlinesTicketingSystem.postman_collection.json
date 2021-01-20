@@ -1,0 +1,760 @@
+{
+	"info": {
+		"_postman_id": "9618e116-1e37-4d13-85b2-a9c5d8197a11",
+		"name": "AirlinesTicketingSystem",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Havayolu Şirketi",
+			"item": [
+				{
+					"name": "Havayolu Şirketi Kaydetme",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"airlineName\": \"Turkish Airlines\",\r\n    \"airlineCallsign\":\"TURKAIR\",\r\n    \"iataCode\":\"TK\",\r\n    \"icaoCode\":\"THY\",\r\n    \"country\":\"Turkey\",\r\n    \"fuelCharge\":28\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:7000/airline-company/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"airline-company",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Havayolu Şirketi Getirme",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:7000/airline-company/read/22",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"airline-company",
+								"read",
+								"22"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Havayolu Şirketleri Listeleme",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:7000/airline-company/readAll",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"airline-company",
+								"readAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Havayolu Şirketi Güncelleme",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \r\n    \"id\": 22,\r\n    \"airlineName\": \"Turkish Airlines\",\r\n    \"airlineAlias\": \"THY\",\r\n    \"airlineCallsign\":\"TURKAIR\",\r\n    \"iataCode\":\"TK\",\r\n    \"icaoCode\":\"THY\",\r\n    \"country\":\"Turkey\",\r\n    \"fuelCharge\": 34\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:7000/airline-company/update",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"airline-company",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Havayolu Şirketi Silme",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:7000/airline-company/delete/22",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"airline-company",
+								"delete",
+								"22"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Havaalanı",
+			"item": [
+				{
+					"name": "Havaalanı Kaydetme",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"airportName\": \"Esenboğa International Airport\",\r\n    \"iataCode\": \"ESB\",\r\n    \"icaoCode\": \"LTAC\",\r\n    \"city\": \"Ankara\",\r\n    \"country\": \"Turkey\",\r\n    \"latitude\": 40.128101348899996,\r\n    \"longitude\": 32.995098114,\r\n    \"altitude\": 3125,\r\n    \"isActive\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:7000/airport/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"airport",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Havaalanı Getirme",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:7000/airport/read/23",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"airport",
+								"read",
+								"23"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Havaalanları Listeleme",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:7000/airport/readAll",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"airport",
+								"readAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Havaalanı Güncelleme",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 23,\r\n    \"airportName\": \"Esenboğa International Airport\",\r\n    \"iataCode\": \"ESB\",\r\n    \"icaoCode\": \"LTAC\",\r\n    \"city\": \"Ankara\",\r\n    \"country\": \"Turkey\",\r\n    \"latitude\": 40.128101348899996,\r\n    \"longitude\": 32.995098114,\r\n    \"altitude\": 3128,\r\n    \"isActive\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:7000/airport/update",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"airport",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Havaalanı Silme",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:7000/airport/delete/23",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"airport",
+								"delete",
+								"23"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Rota",
+			"item": [
+				{
+					"name": "Rota Kaydetme",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"sourceAirport\": {\r\n        \"id\": 9,\r\n        \"createdDate\": \"2021-01-17T12:47:57.805+00:00\",\r\n        \"lastModifiedDate\": \"2021-01-17T12:47:57.805+00:00\",\r\n        \"airportName\": \"Esenboğa International Airport\",\r\n        \"iataCode\": \"ESB\",\r\n        \"icaoCode\": \"LTAC\",\r\n        \"city\": \"Ankara\",\r\n        \"country\": \"Turkey\",\r\n        \"latitude\": 40.128101348899996,\r\n        \"longitude\": 32.995098114,\r\n        \"altitude\": 3125,\r\n        \"isActive\": true\r\n    },\r\n    \"destinationAirport\": {\r\n        \"id\": 10,\r\n        \"createdDate\": \"2021-01-17T12:49:26.408+00:00\",\r\n        \"lastModifiedDate\": \"2021-01-17T12:49:26.408+00:00\",\r\n        \"airportName\": \"Adnan Menderes International Airport\",\r\n        \"iataCode\": \"ADB\",\r\n        \"icaoCode\": \"LTBJ\",\r\n        \"city\": \"Izmir\",\r\n        \"country\": \"Turkey\",\r\n        \"latitude\": 38.2924003601,\r\n        \"longitude\": 27.156999588,\r\n        \"altitude\": 412,\r\n        \"isActive\": true\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:7000/route/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"route",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rota Getirme",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:7000/route/read/24",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"route",
+								"read",
+								"24"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rota Listeleme",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:7000/route/readAll",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"route",
+								"readAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "IATA Koduna Göre Rotaları Sorgulama",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:7000/route/readByIataCode/ESB",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"route",
+								"readByIataCode",
+								"ESB"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rota Güncelleme",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":24,\r\n    \"sourceAirport\": {\r\n        \"id\": 10,\r\n        \"createdDate\": \"2021-01-17T12:49:26.408+00:00\",\r\n        \"lastModifiedDate\": \"2021-01-17T12:49:26.408+00:00\",\r\n        \"airportName\": \"Adnan Menderes International Airport\",\r\n        \"iataCode\": \"ADB\",\r\n        \"icaoCode\": \"LTBJ\",\r\n        \"city\": \"Izmir\",\r\n        \"country\": \"Turkey\",\r\n        \"latitude\": 38.2924003601,\r\n        \"longitude\": 27.156999588,\r\n        \"altitude\": 412,\r\n        \"isActive\": true\r\n    },\r\n    \"destinationAirport\": {\r\n        \"id\": 9,\r\n        \"createdDate\": \"2021-01-17T12:47:57.805+00:00\",\r\n        \"lastModifiedDate\": \"2021-01-17T12:47:57.805+00:00\",\r\n        \"airportName\": \"Esenboğa International Airport\",\r\n        \"iataCode\": \"ESB\",\r\n        \"icaoCode\": \"LTAC\",\r\n        \"city\": \"Ankara\",\r\n        \"country\": \"Turkey\",\r\n        \"latitude\": 40.128101348899996,\r\n        \"longitude\": 32.995098114,\r\n        \"altitude\": 3125,\r\n        \"isActive\": true\r\n    } \r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:7000/route/update",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"route",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rota Silme",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:7000/route/delete/24",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"route",
+								"delete",
+								"24"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Uçak",
+			"item": [
+				{
+					"name": "Uçak Kaydetme",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"airplaneName\": \"Boeing 737-400\",\r\n        \"numberOfSeats\": 150,\r\n        \"iataCode\": \"734\",\r\n        \"icaoCode\": \"B734\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:7000/airplane/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"airplane",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Uçak Getirme",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:7000/airplane/read/25",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"airplane",
+								"read",
+								"25"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Uçakları Listeleme",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:7000/airplane/readAll",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"airplane",
+								"readAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Uçak Güncelleme",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"id\": 25,\r\n        \"airplaneName\": \"Boeing 737-400\",\r\n        \"numberOfSeats\": 155,\r\n        \"iataCode\": \"734\",\r\n        \"icaoCode\": \"B734\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:7000/airplane/update",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"airplane",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Uçak Silme",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:7000/airplane/delete/22",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"airplane",
+								"delete",
+								"22"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Uçuş",
+			"item": [
+				{
+					"name": "Uçuş Kaydetme",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"route\": {\r\n        \"id\": 24,\r\n        \"createdDate\": null,\r\n        \"lastModifiedDate\": \"2021-01-20T18:15:10.823+00:00\",\r\n        \"sourceAirport\": {\r\n            \"id\": 10,\r\n            \"createdDate\": \"2021-01-17T12:49:26.408+00:00\",\r\n            \"lastModifiedDate\": \"2021-01-17T12:49:26.408+00:00\",\r\n            \"airportName\": \"Adnan Menderes International Airport\",\r\n            \"iataCode\": \"ADB\",\r\n            \"icaoCode\": \"LTBJ\",\r\n            \"city\": \"Izmir\",\r\n            \"country\": \"Turkey\",\r\n            \"latitude\": 38.2924003601,\r\n            \"longitude\": 27.156999588,\r\n            \"altitude\": 412,\r\n            \"isActive\": true\r\n        },\r\n        \"destinationAirport\": {\r\n            \"id\": 9,\r\n            \"createdDate\": \"2021-01-17T12:47:57.805+00:00\",\r\n            \"lastModifiedDate\": \"2021-01-17T12:47:57.805+00:00\",\r\n            \"airportName\": \"Esenboğa International Airport\",\r\n            \"iataCode\": \"ESB\",\r\n            \"icaoCode\": \"LTAC\",\r\n            \"city\": \"Ankara\",\r\n            \"country\": \"Turkey\",\r\n            \"latitude\": 40.128101348899996,\r\n            \"longitude\": 32.995098114,\r\n            \"altitude\": 3125,\r\n            \"isActive\": true\r\n        }\r\n    },\r\n    \"airlineCompany\": {\r\n        \"id\": 22,\r\n        \"createdDate\": \"2021-01-20T17:57:59.722+00:00\",\r\n        \"lastModifiedDate\": \"2021-01-20T17:57:59.722+00:00\",\r\n        \"airlineName\": \"Turkish Airlines\",\r\n        \"airlineAlias\": \"THY\",\r\n        \"airlineCallsign\": \"TURKAIR\",\r\n        \"iataCode\": \"TK\",\r\n        \"icaoCode\": \"THY\",\r\n        \"country\": \"Turkey\",\r\n        \"fuelCharge\": 34.0\r\n    },\r\n    \"airplane\": {\r\n            \"id\": 25,\r\n            \"createdDate\": null,\r\n            \"lastModifiedDate\": \"2021-01-20T18:30:51.554+00:00\",\r\n            \"airplaneName\": \"Boeing 737-400\",\r\n            \"numberOfSeats\": 155,\r\n            \"iataCode\": \"734\",\r\n            \"icaoCode\": \"B734\"\r\n    },\r\n    \"isDirectly\": true,\r\n    \"flightDate\": \"2021-01-30\",\r\n    \"departureTime\": \"09:30:00\",\r\n    \"duration\": \"01:15:00\",\r\n    \"flightPackages\": [\r\n        {\r\n            \"flightClass\": \"ECONOMY\",\r\n            \"baseQuota\": 30,\r\n            \"basePrice\": 115,\r\n            \"baggage\": 15.0,\r\n            \"cabinBaggage\": 5\r\n        },\r\n        {\r\n            \"flightClass\": \"BUSINESS\",\r\n            \"baseQuota\": 30,\r\n            \"basePrice\": 165,\r\n            \"baggage\": 20.0,\r\n            \"cabinBaggage\": 10\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:7000/flight/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"flight",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Uçuş Getirme",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:7000/flight/read/26",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"flight",
+								"read",
+								"26"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Uçuş Listeleme",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:7000/flight/readAll",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"flight",
+								"readAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Uçuş Güncelleme",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"id\": 26,\r\n        \"createdDate\": \"2021-01-20T18:34:06.254+00:00\",\r\n        \"lastModifiedDate\": \"2021-01-20T18:34:06.254+00:00\",\r\n        \"flightCode\": \"TK8101\",\r\n        \"route\": {\r\n            \"id\": 24,\r\n            \"createdDate\": null,\r\n            \"lastModifiedDate\": \"2021-01-20T18:15:10.823+00:00\",\r\n            \"sourceAirport\": {\r\n                \"id\": 10,\r\n                \"createdDate\": \"2021-01-17T12:49:26.408+00:00\",\r\n                \"lastModifiedDate\": \"2021-01-17T12:49:26.408+00:00\",\r\n                \"airportName\": \"Adnan Menderes International Airport\",\r\n                \"iataCode\": \"ADB\",\r\n                \"icaoCode\": \"LTBJ\",\r\n                \"city\": \"Izmir\",\r\n                \"country\": \"Turkey\",\r\n                \"latitude\": 38.2924003601,\r\n                \"longitude\": 27.156999588,\r\n                \"altitude\": 412,\r\n                \"isActive\": true\r\n            },\r\n            \"destinationAirport\": {\r\n                \"id\": 9,\r\n                \"createdDate\": \"2021-01-17T12:47:57.805+00:00\",\r\n                \"lastModifiedDate\": \"2021-01-17T12:47:57.805+00:00\",\r\n                \"airportName\": \"Esenboğa International Airport\",\r\n                \"iataCode\": \"ESB\",\r\n                \"icaoCode\": \"LTAC\",\r\n                \"city\": \"Ankara\",\r\n                \"country\": \"Turkey\",\r\n                \"latitude\": 40.128101348899996,\r\n                \"longitude\": 32.995098114,\r\n                \"altitude\": 3125,\r\n                \"isActive\": true\r\n            }\r\n        },\r\n        \"airlineCompany\": {\r\n            \"id\": 22,\r\n            \"createdDate\": null,\r\n            \"lastModifiedDate\": \"2021-01-20T17:57:59.722+00:00\",\r\n            \"airlineName\": \"Turkish Airlines\",\r\n            \"airlineAlias\": \"THY\",\r\n            \"airlineCallsign\": \"TURKAIR\",\r\n            \"iataCode\": \"TK\",\r\n            \"icaoCode\": \"THY\",\r\n            \"country\": \"Turkey\",\r\n            \"fuelCharge\": 34.0\r\n        },\r\n        \"airplane\": {\r\n            \"id\": 25,\r\n            \"createdDate\": null,\r\n            \"lastModifiedDate\": \"2021-01-20T18:30:51.554+00:00\",\r\n            \"airplaneName\": \"Boeing 737-400\",\r\n            \"numberOfSeats\": 155,\r\n            \"iataCode\": \"734\",\r\n            \"icaoCode\": \"B734\"\r\n        },\r\n        \"isDirectly\": true,\r\n        \"flightDate\": \"2021-01-30\",\r\n        \"departureTime\": \"10:30:00\",\r\n        \"duration\": \"01:15:00\",\r\n        \"flightPackages\": [\r\n            {\r\n                \"id\": 27,\r\n                \"createdDate\": \"2021-01-20T18:34:06.290+00:00\",\r\n                \"lastModifiedDate\": \"2021-01-20T18:34:06.290+00:00\",\r\n                \"flightClass\": \"ECONOMY\",\r\n                \"baseQuota\": 30,\r\n                \"basePrice\": 115.0,\r\n                \"baggage\": 15.0,\r\n                \"cabinBaggage\": 5.0,\r\n                \"purchaseCode\": \"409c333e-7540-4361-92b8-98e77f310ed1\"\r\n            },\r\n            {\r\n                \"id\": 28,\r\n                \"createdDate\": \"2021-01-20T18:34:06.309+00:00\",\r\n                \"lastModifiedDate\": \"2021-01-20T18:34:06.309+00:00\",\r\n                \"flightClass\": \"BUSINESS\",\r\n                \"baseQuota\": 30,\r\n                \"basePrice\": 165.0,\r\n                \"baggage\": 20.0,\r\n                \"cabinBaggage\": 10.0,\r\n                \"purchaseCode\": \"aef600fe-b6e2-419f-9daf-7c2f6798b80d\"\r\n            }\r\n        ]\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:7000/flight/update",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"flight",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Uçuş Silme",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:7000/flight/delete/26",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"flight",
+								"delete",
+								"26"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sefer",
+			"item": [
+				{
+					"name": "Sefer Sorgulama",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"sourceAirport\": \"ADB\",\r\n  \"destinationAirport\": \"ESB\",\r\n  \"flightDate\": \"2021-01-30\",\r\n  \"isOneWay\": false,\r\n  \"numberOfPassengers\": 1,\r\n  \"returnFlightDate\": \"2021-01-31\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:7000/journey/getJourneys",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"journey",
+								"getJourneys"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Bilet Satın Alım",
+			"item": [
+				{
+					"name": "Bilet Satın Alma",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"currentPrice\": 165.0,\r\n  \"currentQuota\": 30,\r\n  \"flightId\": 26,\r\n  \"passengers\": [\r\n    {\r\n      \"birthday\": \"1995-01-12\",\r\n      \"firstName\": \"Doğukan\",\r\n      \"lastName\": \"Yıldırım\",\r\n      \"gender\": \"MALE\",\r\n      \"identificationNumber\": \"31584690400\"\r\n    }\r\n  ],\r\n  \"purchaseCode\": \"aef600fe-b6e2-419f-9daf-7c2f6798b80d\",\r\n  \"purchaseDetail\": {\r\n    \"creditCardNumber\": \"4539904863257197\",\r\n    \"creditCardType\": \"VISA\",\r\n    \"cvv\": \"176\",\r\n    \"email\": \"dogukanyildirim06@gmail.com\",\r\n    \"expirationMonth\": \"9\",\r\n    \"expirationYear\": \"2033\", \r\n    \"netPrice\":228.7,\r\n    \"nameOnCreditCard\": \"Doğukan Yıldırım\",\r\n    \"telNo\": \"+905356458244\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:7000/ticket-purchase/buyTicket",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"ticket-purchase",
+								"buyTicket"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bilet PNR Numarasına Göre Sorgulama",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:7000/ticket-purchase/getTicketByPnrCode/OUQJQE",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"ticket-purchase",
+								"getTicketByPnrCode",
+								"OUQJQE"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bilet PNR Numarasına Göre Bilet İptali",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:7000/ticket-purchase/cancelTicketByPnrCode/OUQJQE",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"ticket-purchase",
+								"cancelTicketByPnrCode",
+								"OUQJQE"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	]
+}

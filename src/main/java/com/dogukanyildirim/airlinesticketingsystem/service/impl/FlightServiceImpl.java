@@ -101,11 +101,7 @@ public class FlightServiceImpl implements FlightService {
         if (Objects.isNull(flightDate)) {
             throw new ServiceException(FLIGHT_DATE_IS_NULL);
         }
-        List<Flight> flightList = flightRepository.findAllByRouteAndFlightDateOrderByDepartureTimeAsc(route, flightDate);
-        if (flightList.isEmpty()) {
-            throw new ServiceException(ANY_FLIGHT_NOT_FOUND, true);
-        }
-        return flightList;
+        return flightRepository.findAllByRouteAndFlightDateOrderByDepartureTimeAsc(route, flightDate);
     }
 
     /**

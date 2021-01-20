@@ -21,4 +21,6 @@ public class TicketSummaryResponse {
     private Float baggage;
     private Float cabinBaggage;
     private List<PassengerResponse> passengers;
+    private String creditCardNo;
+    private float payment;
 }
