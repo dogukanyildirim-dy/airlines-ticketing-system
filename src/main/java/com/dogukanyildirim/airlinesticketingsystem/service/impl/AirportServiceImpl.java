@@ -21,6 +21,12 @@ public class AirportServiceImpl implements AirportService {
         this.airportRepository = airportRepository;
     }
 
+    /**
+     * Havaalanı kaydetmek için yazılmış servis metotudur.
+     *
+     * @param airport Havaalanı Entity
+     * @return Kaydedilen Havaalanı Entity
+     */
     @Override
     public Airport create(Airport airport) {
         if (Objects.isNull(airport)) {
@@ -30,6 +36,12 @@ public class AirportServiceImpl implements AirportService {
         return airportRepository.save(airport);
     }
 
+    /**
+     * ID ile bir Havaalanı sorgulamak için yazılmış servis metotudur.
+     *
+     * @param id Havaalanı ID
+     * @return Havaalanı Entity
+     */
     @Override
     public Airport read(Integer id) {
         if (Objects.isNull(id)) {
@@ -42,11 +54,22 @@ public class AirportServiceImpl implements AirportService {
         return resultOpt.get();
     }
 
+    /**
+     * Tüm havaalanlarını sorgulayan metottur.
+     *
+     * @return Havaalanı listesi
+     */
     @Override
     public List<Airport> readAll() {
         return airportRepository.findAll();
     }
 
+    /**
+     * Havaalanı güncelleme işlemini yapan metottur.
+     *
+     * @param airport Havaalanı Entity
+     * @return Havaalanı Entity
+     */
     @Override
     public Airport update(Airport airport) {
         if (Objects.isNull(airport) || Objects.isNull(airport.getId())) {
@@ -56,6 +79,12 @@ public class AirportServiceImpl implements AirportService {
         return airportRepository.save(airport);
     }
 
+    /**
+     * Havaalanı silmek işlemini yapan metottur.
+     *
+     * @param id Havaalanı id
+     * @return Havaalanı Entity
+     */
     @Override
     public Airport delete(Integer id) {
         if (Objects.isNull(id)) {
@@ -68,6 +97,12 @@ public class AirportServiceImpl implements AirportService {
         return airport;
     }
 
+    /**
+     * Havaalanı bilgileri validasyon metodudur.
+     *
+     * @param airport Havaalanı Entity
+     * @throws ValidationException Exception nesnesi
+     */
     private void airportValidation(Airport airport) throws ValidationException {
         if (airport.getIataCode().length() != 3) {
             throw new ValidationException(IATA_CODE_HAVE_MUST_3_CHAR);
@@ -77,7 +112,7 @@ public class AirportServiceImpl implements AirportService {
             throw new ValidationException(INVALID_LATITUDE_VALUE);
         } else if ((airport.getLongitude() < -180.0) && (airport.getLongitude() > 180.0)) {
             throw new ValidationException(INVALID_LONGITUDE_VALUE);
-        }else if ((airport.getAltitude() < 0.0)) {
+        } else if ((airport.getAltitude() < 0.0)) {
             throw new ValidationException(INVALID_ALTITUDE_VALUE);
         }
 

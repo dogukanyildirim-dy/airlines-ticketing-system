@@ -35,6 +35,12 @@ public class JourneyServiceImpl implements JourneyService {
         this.ticketPriceHistoryRepository = ticketPriceHistoryRepository;
     }
 
+    /**
+     * Gidiş ve opsiyonel olarak Dönüş Seferlerini getiren metottur.
+     *
+     * @param journeyRequest Seyahat istek gövdesi
+     * @return Gidiş ve Dönüş Seferleri
+     */
     @Override
     public MainJourneyResponse getJourneys(JourneyRequest journeyRequest) {
         MainJourneyResponse mainJourneyResponse = new MainJourneyResponse();
@@ -55,6 +61,14 @@ public class JourneyServiceImpl implements JourneyService {
         return mainJourneyResponse;
     }
 
+    /**
+     * Seyahat edilecek bilgilere, uçuş tarihi ve rotaya göre uçuşları sorgulayan ve sefer olarak mapleyen metottur.
+     *
+     * @param journeyRequest   Seyahat istek gövdesi
+     * @param flightDate       Uçuş tarihi
+     * @param journeyResponses Sorgulanan Seyahatler
+     * @param route            Rota Entity
+     */
     private void createJourneysByRoute(JourneyRequest journeyRequest, LocalDate flightDate, List<JourneyResponse> journeyResponses, Route route) {
         List<Flight> flightList = flightService.readByRouteAndFlightDate(route, flightDate);
         for (Flight flight : flightList) {
@@ -76,7 +90,7 @@ public class JourneyServiceImpl implements JourneyService {
             if (Objects.nonNull(flight.getFlightPackages())) {
                 for (FlightPackage flightPackage : flight.getFlightPackages()) {
                     JourneyFlightPackageResponse journeyFlightPackageResponse = new JourneyFlightPackageResponse();
-                    journeyFlightPackageResponse.setFlightClass(flightPackage.getFlightClass().getClassName());
+                    journeyFlightPackageResponse.setFlightClass(flightPackage.getFlightClass());
                     journeyFlightPackageResponse.setBaggage(flightPackage.getBaggage());
                     journeyFlightPackageResponse.setCabinBaggage(flightPackage.getCabinBaggage());
                     calculateTicketPriceAndQuota(flightPackage, journeyFlightPackageResponse);
@@ -92,6 +106,14 @@ public class JourneyServiceImpl implements JourneyService {
         }
     }
 
+    /**
+     * Bu metot; eğer bilet, paket içerisindeki taban kotasını henüz doldurmadıysa taban fiyat üzerinden,
+     * Kotayı doldurduysa kotanın ve fiyatın %10 artımı yapılır.
+     * Mevcutta bir aşım yoksa o anki olması gereken fiyat gösterilir.
+     *
+     * @param flightPackage                Uçuş paketi
+     * @param journeyFlightPackageResponse Seyahat uçuş paketi yanıt gövdesi
+     */
     private void calculateTicketPriceAndQuota(FlightPackage flightPackage, JourneyFlightPackageResponse journeyFlightPackageResponse) {
         Optional<TicketPriceHistory> ticketPriceHistory = ticketPriceHistoryRepository.findFirstByPurchaseCodeOrderByCreatedDateDesc(flightPackage.getPurchaseCode());
         Integer purchasedTicketCount = ticketPurchaseService.getCountByFlightIdAndPurchaseCode(flightPackage.getFlight().getId(), flightPackage.getPurchaseCode());

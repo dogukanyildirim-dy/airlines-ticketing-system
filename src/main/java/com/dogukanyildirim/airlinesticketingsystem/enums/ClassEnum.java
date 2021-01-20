@@ -7,17 +7,7 @@ package com.dogukanyildirim.airlinesticketingsystem.enums;
  */
 
 public enum ClassEnum {
-    ECONOMY("ECONOMY"),
-    BUSINESS("BUSINESS"),
-    FIRST("FIRST");
-
-    private final String className;
-
-    ClassEnum(String className) {
-        this.className = className;
-    }
-
-    public String getClassName() {
-        return className;
-    }
+    ECONOMY,
+    BUSINESS,
+    FIRST
 }

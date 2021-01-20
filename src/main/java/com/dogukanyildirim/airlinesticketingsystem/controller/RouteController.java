@@ -13,6 +13,12 @@ import java.util.List;
 
 import static com.dogukanyildirim.airlinesticketingsystem.constant.ResponseMessages.*;
 
+/**
+ * Bu controller rota CRUD işlemlerine yönelik entpointlerin bulunduğu controllerdır.
+ *
+ * @author dogukan.yildirim
+ */
+
 @RequestMapping(value = "route")
 @RestController
 public class RouteController {
@@ -33,6 +39,12 @@ public class RouteController {
     public ResponseEntity<RestResponse<RouteDTO>> read(@PathVariable("id") Integer id) {
         Route result = routeService.read(id);
         return new ResponseEntity<>(new RestResponse<>(ObjectMapper.getInstance().map(result, RouteDTO.class), READ_TITLE, READ_SUCCESS_MESSAGE), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "readByIataCode/{iataCode}")
+    public ResponseEntity<RestResponse<List<RouteDTO>>> read(@PathVariable("iataCode") String iataCode) {
+        List<Route> result = routeService.readBySourceIata(iataCode);
+        return new ResponseEntity<>(new RestResponse<>(ObjectMapper.getInstance().mapAll(result, RouteDTO.class), READ_TITLE, READ_SUCCESS_MESSAGE), HttpStatus.OK);
     }
 
     @GetMapping(value = "readAll")

@@ -13,6 +13,13 @@ import java.util.List;
 
 import static com.dogukanyildirim.airlinesticketingsystem.constant.ResponseMessages.*;
 
+/**
+ * Bu controller havayolu şirketi CRUD işlemlerine yönelik entpointlerin bulunduğu controllerdır.
+ *
+ * @author dogukan.yildirim
+ */
+
+
 @RequestMapping(value = "airline-company")
 @RestController
 public class AirlineCompanyController {

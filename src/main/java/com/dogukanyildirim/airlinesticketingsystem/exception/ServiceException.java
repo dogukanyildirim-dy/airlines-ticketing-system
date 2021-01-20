@@ -7,10 +7,12 @@ public class ServiceException extends RuntimeException {
         super(message);
         this.warning = Boolean.FALSE;
     }
+
     public ServiceException(String message, boolean warning) {
         super(message);
         this.warning = warning;
     }
+
     public Boolean getWarning() {
         return this.warning;
     }

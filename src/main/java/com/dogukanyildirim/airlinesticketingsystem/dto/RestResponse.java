@@ -10,7 +10,8 @@ public class RestResponse<T> {
     private String title;
     private String message;
 
-    public RestResponse() {}
+    public RestResponse() {
+    }
 
     public RestResponse(T data) {
         this.data = data;

@@ -11,6 +11,8 @@ public interface RouteService {
 
     Route readBySourceIataAndDestionationIata(String sIata, String dIata);
 
+    List<Route> readBySourceIata(String sIata);
+
     List<Route> readAll();
 
     Route update(Route route);

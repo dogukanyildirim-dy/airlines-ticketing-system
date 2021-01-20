@@ -32,8 +32,6 @@ public class ExceptionMessages {
     public static final String PASSENGER_NOT_FOUND = "Kaydedilecek yolcu nesnesi boş olamaz!";
 
     public static final String TICKET_PURCHASE_OBJECT_MUST_NOT_BE_NULL = "Bilet satın alım nesnesi boş olamaz!";
-    public static final String TICKET_PURCHASE_OBJECT_OR_ID_MUST_NOT_BE_NULL = "Bilet satın alım nesnesi veya ID boş olamaz!";
-    public static final String TICKET_PURCHASE_NOT_FOUND = "Kaydedilecek bilet satın alım nesnesi boş olamaz!";
 
     public static final String IATA_CODE_HAVE_MUST_2_CHAR = "IATA kodu 2 karaktere sahip olmalıdır!";
     public static final String ICAO_CODE_HAVE_MUST_3_CHAR = "ICAO kodu 3 karaktere sahip olmalıdır!";
@@ -58,5 +56,9 @@ public class ExceptionMessages {
     public static final String FLIGHT_BASE_QUOTA_MUST_NOT_BE_NULL = "Uçuş paketi taban kontenjan bilgisi boş olamaz!";
     public static final String FLIGHT_BASE_PRICE_MUST_NOT_BE_NULL = "Uçuş paketi taban fiyat bilgisi boş olamaz!";
     public static final String FLIGHT_TOTAL_QUOTA_EXCEEDED = "Toplam koltuk kontenjanında uçak koltuk sayısını aştınız!";
+
+
+    public static final String PNR_CODE_NOT_NULL = "PNR kodu boş olamaz!";
+    public static final String TICKET_NOT_FOUND_BY_PNR_CODE = "Girdiğiniz PNR kodu ile bir bilet bulunamadı!";
 
 }

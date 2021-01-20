@@ -22,6 +22,12 @@ public class AirlineCompanyServiceImpl implements AirlineCompanyService {
         this.airlineCompanyRepository = airlineCompanyRepository;
     }
 
+    /**
+     * Havayolu şirketi kaydetmek için yazılmış servis metotudur.
+     *
+     * @param airlineCompany Havayolu Şirketi Entity
+     * @return Kaydedilen Havayolu Şirketi Entity
+     */
     @Override
     public AirlineCompany create(AirlineCompany airlineCompany) {
         if (Objects.isNull(airlineCompany)) {
@@ -31,6 +37,12 @@ public class AirlineCompanyServiceImpl implements AirlineCompanyService {
         return airlineCompanyRepository.save(airlineCompany);
     }
 
+    /**
+     * ID ile bir Havayolu Şirketi sorgulamak için yazılmış servis metotudur.
+     *
+     * @param id Havayolu Şirketi ID
+     * @return Havayolu Şirketi Entity
+     */
     @Override
     public AirlineCompany read(Integer id) {
         if (Objects.isNull(id)) {
@@ -43,11 +55,22 @@ public class AirlineCompanyServiceImpl implements AirlineCompanyService {
         return resultOpt.get();
     }
 
+    /**
+     * Tüm havayolu şirketlerini sorgulayan metottur.
+     *
+     * @return Havayolu şirketi listesi
+     */
     @Override
     public List<AirlineCompany> readAll() {
         return airlineCompanyRepository.findAll();
     }
 
+    /**
+     * Havayolu şirketi güncelleme işlemini yapan metottur.
+     *
+     * @param airlineCompany Havayolu şirketi Entity
+     * @return Havayolu şirketi Entity
+     */
     @Override
     public AirlineCompany update(AirlineCompany airlineCompany) {
         if (Objects.isNull(airlineCompany) || Objects.isNull(airlineCompany.getId())) {
@@ -57,6 +80,12 @@ public class AirlineCompanyServiceImpl implements AirlineCompanyService {
         return airlineCompanyRepository.save(airlineCompany);
     }
 
+    /**
+     * Havayolu şirketi silmek işlemini yapan metottur.
+     *
+     * @param id Havayolu şirketi id
+     * @return Havayolu şirketi Entity
+     */
     @Override
     public AirlineCompany delete(Integer id) {
         if (Objects.isNull(id)) {
@@ -69,6 +98,12 @@ public class AirlineCompanyServiceImpl implements AirlineCompanyService {
         return airlineCompany;
     }
 
+    /**
+     * Havayolu şirketi bilgileri validasyon metodudur.
+     *
+     * @param airlineCompany Havayolu şirketi Entity
+     * @throws ValidationException Exception nesnesi
+     */
     private void airlineCompanyValidation(AirlineCompany airlineCompany) throws ValidationException {
         if (airlineCompany.getIataCode().length() != 2) {
             throw new ValidationException(IATA_CODE_HAVE_MUST_2_CHAR);

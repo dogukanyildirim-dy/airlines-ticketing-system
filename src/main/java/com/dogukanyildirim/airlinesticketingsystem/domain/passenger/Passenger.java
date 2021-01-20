@@ -1,7 +1,6 @@
 package com.dogukanyildirim.airlinesticketingsystem.domain.passenger;
 
 import com.dogukanyildirim.airlinesticketingsystem.domain.base.BaseEntity;
-import com.dogukanyildirim.airlinesticketingsystem.domain.management.Flight;
 import com.dogukanyildirim.airlinesticketingsystem.enums.GenderEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;

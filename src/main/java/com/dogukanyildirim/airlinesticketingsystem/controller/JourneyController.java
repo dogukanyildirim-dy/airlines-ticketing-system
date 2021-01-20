@@ -14,6 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 import static com.dogukanyildirim.airlinesticketingsystem.constant.ResponseMessages.READ_SUCCESS_MESSAGE;
 import static com.dogukanyildirim.airlinesticketingsystem.constant.ResponseMessages.READ_TITLE;
 
+/**
+ * Bu controller belirtilen özelliklerdeki uçak seferleri getirmeye yönelik entpointin bulunduğu controllerdır.
+ *
+ * @author dogukan.yildirim
+ */
+
 @RequestMapping(value = "journey")
 @RestController
 public class JourneyController {

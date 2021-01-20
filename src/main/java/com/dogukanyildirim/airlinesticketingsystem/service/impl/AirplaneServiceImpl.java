@@ -21,6 +21,12 @@ public class AirplaneServiceImpl implements AirplaneService {
         this.airplaneRepository = airplaneRepository;
     }
 
+    /**
+     * Uçak kaydetmek için yazılmış servis metotudur.
+     *
+     * @param airplane Uçak Entity
+     * @return Kaydedilen Uçak Entity
+     */
     @Override
     public Airplane create(Airplane airplane) {
         if (Objects.isNull(airplane)) {
@@ -30,6 +36,12 @@ public class AirplaneServiceImpl implements AirplaneService {
         return airplaneRepository.save(airplane);
     }
 
+    /**
+     * ID ile bir Uçak sorgulamak için yazılmış servis metotudur.
+     *
+     * @param id Uçak ID
+     * @return Uçak Entity
+     */
     @Override
     public Airplane read(Integer id) {
         if (Objects.isNull(id)) {
@@ -42,11 +54,22 @@ public class AirplaneServiceImpl implements AirplaneService {
         return resultOpt.get();
     }
 
+    /**
+     * Tüm uçakları sorgulayan metottur.
+     *
+     * @return Uçak listesi
+     */
     @Override
     public List<Airplane> readAll() {
         return airplaneRepository.findAll();
     }
 
+    /**
+     * Uçak güncelleme işlemini yapan metottur.
+     *
+     * @param airplane Uçak Entity
+     * @return Uçak Entity
+     */
     @Override
     public Airplane update(Airplane airplane) {
         if (Objects.isNull(airplane) || Objects.isNull(airplane.getId())) {
@@ -56,6 +79,12 @@ public class AirplaneServiceImpl implements AirplaneService {
         return airplaneRepository.save(airplane);
     }
 
+    /**
+     * Uçak silmek işlemini yapan metottur.
+     *
+     * @param id Uçak id
+     * @return Uçak Entity
+     */
     @Override
     public Airplane delete(Integer id) {
         if (Objects.isNull(id)) {
@@ -68,6 +97,12 @@ public class AirplaneServiceImpl implements AirplaneService {
         return airplane;
     }
 
+    /**
+     * Uçak bilgileri validasyon metodudur.
+     *
+     * @param airplane Uçak Entity
+     * @throws ValidationException Exception nesnesi
+     */
     private void airplaneValidation(Airplane airplane) throws ValidationException {
         if (airplane.getIataCode().length() != 3) {
             throw new ValidationException(IATA_CODE_HAVE_MUST_3_CHAR);

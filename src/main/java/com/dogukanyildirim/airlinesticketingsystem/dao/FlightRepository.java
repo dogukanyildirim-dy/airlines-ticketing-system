@@ -11,5 +11,6 @@ import java.util.List;
 @Repository
 public interface FlightRepository extends JpaRepository<Flight, Integer> {
     boolean existsByFlightCodeAndFlightDate(String flightCode, LocalDate flightDate);
+
     List<Flight> findAllByRouteAndFlightDateOrderByDepartureTimeAsc(Route route, LocalDate flightDate);
 }

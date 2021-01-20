@@ -1,14 +1,13 @@
 package com.dogukanyildirim.airlinesticketingsystem.dto.response;
 
+import com.dogukanyildirim.airlinesticketingsystem.enums.ClassEnum;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.persistence.Column;
 
 @Getter
 @Setter
 public class JourneyFlightPackageResponse {
-    private String flightClass;
+    private ClassEnum flightClass;
     private Integer currentQuota;
     private Float currentPrice;
     private Float baggage;

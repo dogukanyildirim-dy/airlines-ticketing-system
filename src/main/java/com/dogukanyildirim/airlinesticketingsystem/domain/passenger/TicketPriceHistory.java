@@ -23,4 +23,10 @@ public class TicketPriceHistory extends BaseEntity {
 
     @Column(name = "max_quota", nullable = false)
     private Integer maxQuota;
+
+    public TicketPriceHistory(String purchaseCode, Float price, Integer maxQuota) {
+        this.purchaseCode = purchaseCode;
+        this.price = price;
+        this.maxQuota = maxQuota;
+    }
 }

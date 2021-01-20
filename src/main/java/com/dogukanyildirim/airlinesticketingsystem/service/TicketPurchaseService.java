@@ -1,20 +1,16 @@
 package com.dogukanyildirim.airlinesticketingsystem.service;
 
 
-import com.dogukanyildirim.airlinesticketingsystem.domain.passenger.TicketPurchase;
 import com.dogukanyildirim.airlinesticketingsystem.dto.request.TicketPurchaseRequest;
-
-import java.util.List;
+import com.dogukanyildirim.airlinesticketingsystem.dto.response.TicketSummaryResponse;
 
 public interface TicketPurchaseService {
 
-    TicketPurchase create(TicketPurchaseRequest ticketPurchaseRequest);
+    TicketSummaryResponse create(TicketPurchaseRequest ticketPurchaseRequest);
 
-    TicketPurchase read(Integer id);
-
-    List<TicketPurchase> readAll();
+    TicketSummaryResponse read(String pnrCode);
 
     Integer getCountByFlightIdAndPurchaseCode(Integer flightId, String purchaseCode);
 
-    TicketPurchase delete(Integer id);
+    TicketSummaryResponse cancelTicket(String pnrCode);
 }

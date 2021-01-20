@@ -20,6 +20,12 @@ public class PassengerServiceImpl implements PassengerService {
         this.passengerRepository = passengerRepository;
     }
 
+    /**
+     * Yolcu kaydetmek için yazılmış servis metotudur.
+     *
+     * @param passenger Yolcu Entity
+     * @return Kaydedilen Yolcu Entity
+     */
     @Override
     public Passenger create(Passenger passenger) {
         if (Objects.isNull(passenger)) {
@@ -28,6 +34,12 @@ public class PassengerServiceImpl implements PassengerService {
         return passengerRepository.save(passenger);
     }
 
+    /**
+     * ID ile bir Yolcu sorgulamak için yazılmış servis metotudur.
+     *
+     * @param id Yolcu ID
+     * @return Yolcu Entity
+     */
     @Override
     public Passenger read(Integer id) {
         if (Objects.isNull(id)) {
@@ -40,11 +52,22 @@ public class PassengerServiceImpl implements PassengerService {
         return resultOpt.get();
     }
 
+    /**
+     * Tüm yolcuları sorgulayan metottur.
+     *
+     * @return Yolcu listesi
+     */
     @Override
     public List<Passenger> readAll() {
         return passengerRepository.findAll();
     }
 
+    /**
+     * Yolcu güncelleme işlemini yapan metottur.
+     *
+     * @param passenger Yolcu Entity
+     * @return Yolcu Entity
+     */
     @Override
     public Passenger update(Passenger passenger) {
         if (Objects.isNull(passenger) || Objects.isNull(passenger.getId())) {
@@ -53,6 +76,12 @@ public class PassengerServiceImpl implements PassengerService {
         return passengerRepository.save(passenger);
     }
 
+    /**
+     * Yolcu silmek işlemini yapan metottur.
+     *
+     * @param id Yolcu id
+     * @return Yolcu Entity
+     */
     @Override
     public Passenger delete(Integer id) {
         if (Objects.isNull(id)) {

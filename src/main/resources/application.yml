@@ -1,28 +1,18 @@
 server:
   port: 7000
-system:
-  admin:
-    user: sysad
-    pass: sysadP
-  token:
-    expiration: 864000000
-    secret: jf9i4jgu83nfl0
-    header: Authorization
 spring:
   datasource:
-    url: jdbc:postgresql://192.168.10.92:5432/postgres
-    username: postgres
-    password: postgres
-    driver-class-name: org.postgresql.Driver
-#    url: jdbc:h2:mem:testdb
-#    driverClassName: org.h2.Driver
-#    username: sa
-#    password: password
+    #    url: jdbc:postgresql://localhost:5432/postgres
+    #    username: postgres
+    #    password: postgres
+    #    driver-class-name: org.postgresql.Driver
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
   jpa:
-#    database-platform: org.hibernate.dialect.H2Dialect
-    database: POSTGRESQL
+    database-platform: org.hibernate.dialect.H2Dialect
+    database: H2
     hibernate:
       ddl-auto: update
     show-sql: true
-  activemq:
-    user:

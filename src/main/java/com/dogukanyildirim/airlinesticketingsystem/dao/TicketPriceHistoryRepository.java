@@ -9,4 +9,6 @@ import java.util.Optional;
 @Repository
 public interface TicketPriceHistoryRepository extends JpaRepository<TicketPriceHistory, Integer> {
     Optional<TicketPriceHistory> findFirstByPurchaseCodeOrderByCreatedDateDesc(String purchaseCode);
+
+    boolean existsByPurchaseCodeAndPriceAndMaxQuota(String purchaseCode, Float price, Integer maxQuota);
 }
